@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_moemirza14_go_pipeline_sample_1741893663442-pr-trigger-input-set
+  identifier: Build_moemirza14_go_pipeline_sample_1741893663442prtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: default_project
+  pipeline:
+    identifier: Build_moemirza14_go_pipeline_sample_1741893663442
+    properties:
+      ci:
+        codebase:
+          build:
+            type: PR
+            spec:
+              number: <+trigger.prNumber>
