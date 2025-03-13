@@ -1,6 +1,6 @@
 pipeline:
   identifier: Build_moemirza14_go_pipeline_sample_1741893663442
-  name: Build go-pipeline-sample
+  name: Build go-pipeline-samplex1
   orgIdentifier: default
   projectIdentifier: default_project
   properties:
@@ -27,9 +27,11 @@ pipeline:
                   timeout: ""
                   type: Run
           platform:
-            arch: Amd64
             os: Linux
+            arch: Amd64
           runtime:
-            spec: {}
             type: Cloud
+            spec: {}
         type: CI
+        description: ""
+  tags: {}
