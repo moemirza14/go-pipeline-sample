@@ -26,6 +26,47 @@ pipeline:
                     command: echo hello world
                   timeout: ""
                   type: Run
+              - step:
+                  type: Run
+                  name: run unit tests
+                  identifier: run_unit_tests
+                  spec:
+                    connectorRef: <+input>
+                    image: golang:1.15
+                    shell: Sh
+                    command: |-
+                      set +e
+                      go get gotest.tools/gotestsum
+                      gotestsum --format=standard-verbose --junitfile unit-tests.xml
+                      exit 0
+                    reports:
+                      type: JUnit
+                      spec:
+                        paths:
+                          - "*.xml"
+                  description: run_unit_tests
+              - step:
+                  type: Run
+                  name: go build
+                  identifier: go_build
+                  spec:
+                    connectorRef: <+input>
+                    image: golang:1.15
+                    shell: Sh
+                    command: |-
+                      set +e
+                      go get gotest.tools/gotestsum
+                      CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -tags netgo
+                      exit 0
+              - step:
+                  type: BuildAndPushDockerRegistry
+                  name: Build And Push Docker Registry
+                  identifier: Build_And_Push_Docker_Registry
+                  spec:
+                    connectorRef: MoeCon
+                    repo: moemirza12/gotestx1
+                    tags:
+                      - <+pipeline.sequenceId>
           platform:
             os: Linux
             arch: Amd64
